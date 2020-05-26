@@ -1,6 +1,8 @@
 import {
     List,
     ListItem,
+    AccordionContent,
+    Block
 } from 'framework7-react';
 import React, { Component } from 'react';
 
@@ -18,14 +20,17 @@ export default class Waypoints extends Component {
         if (waypoint.address) {
             const wikipediaInfo = waypoint.wikipediaInfo ? waypoint.wikipediaInfo : "...";
             return (
-                <ListItem key={waypoint.id}
-                    title={waypoint.address.city}
-                    subtitle={waypoint.address.country}
-                    text={wikipediaInfo}
-                ></ListItem>
+                <ListItem accordionItem key={waypoint.id} title={waypoint.address.city}>
+                    <AccordionContent>
+                        <Block>
+                            <p>
+                                {wikipediaInfo}
+                            </p>
+                        </Block>
+                    </AccordionContent>
+                </ListItem>
             );
         }
-        // if the address is not yet set render nothing
         return null;
     }
 
@@ -33,7 +38,7 @@ export default class Waypoints extends Component {
         if (this.props.waypoints.length > 0) {
             return (
                 <div>
-                    <List mediaList>
+                    <List accordionList>
                         {this.props.waypoints.map(waypoint => (
                             this.createListItem(waypoint)
                         ))}
