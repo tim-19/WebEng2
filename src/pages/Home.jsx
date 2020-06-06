@@ -64,8 +64,8 @@ export default class Home extends React.Component {
    * Calls the wikipedia api with the city name of the waypoint and then updates the state with the new information
    */
   getWikipediaInfo = waypoint => {
-    console.log(waypoint.address);
-    const endpoint = `https://de.wikipedia.org/w/api.php?format=json&action=query&origin=*&prop=extracts&exintro=&explaintext=&titles=${waypoint.address.city}`
+    const cityName = waypoint.address[Object.keys(waypoint.address)[0]];
+    const endpoint = `https://de.wikipedia.org/w/api.php?format=json&action=query&origin=*&prop=extracts&exintro=&explaintext=&titles=${cityName}`
     fetch(endpoint)
       .then(response => response.json())
       .then(data => {

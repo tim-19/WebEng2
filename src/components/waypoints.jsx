@@ -19,8 +19,9 @@ export default class Waypoints extends Component {
     createListItem = waypoint => {
         if (waypoint.address) {
             const wikipediaInfo = waypoint.wikipediaInfo ? waypoint.wikipediaInfo : "...";
+            const cityName = waypoint.address[Object.keys(waypoint.address)[0]];
             return (
-                <ListItem accordionItem key={waypoint.id} title={waypoint.address.city}>
+                <ListItem accordionItem key={waypoint.id} title={cityName}>
                     <AccordionContent>
                         <Block>
                             <p>
