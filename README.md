@@ -1,79 +1,36 @@
-# My App
+# Web Engineering 2 Prüfungsaufgabe
 
-## Framework7 CLI Options
+## Live Version der Anwendung
 
-Framework7 app created with following options:
+[Hier gehts zur Live Version](https://master.d28z43slkxs0h.amplifyapp.com/)
 
-```
-{
-  "cwd": "/home/tobias/dev/uni/temp",
-  "type": [
-    "pwa"
-  ],
-  "name": "My App",
-  "framework": "react",
-  "template": "single-view",
-  "bundler": "webpack",
-  "cssPreProcessor": false,
-  "theming": {
-    "customColor": false,
-    "color": "#007aff",
-    "darkTheme": false,
-    "iconFonts": true,
-    "fillBars": false
-  },
-  "customBuild": false,
-  "webpack": {
-    "developmentSourceMap": true,
-    "productionSourceMap": true,
-    "hashAssets": false,
-    "preserveAssetsPaths": false,
-    "inlineAssets": true
-  }
-}
-```
+## Deployment
+
+Die Anwendung wird nach jedem erfolgreichen Pull Request in den Master-Branch automatisch auf AWS deployed.
 
 ## NPM Scripts
 
-* 🔥 `start` - run development server
-* 🔧 `dev` - run development server
-* 🔧 `build-dev` - build web app using development mode (faster build without minification and optimization)
-* 🔧 `build-prod` - build web app for production
+* 🔥 `start`/`dev` - Anwendung im Entwicklungsserver starten
+* 🔧 `build-dev` - Projekt im Entwicklungsmodus bauen
+* 🔧 `build-prod` - Projekt für Produktionsumgebung bauen
 
-## WebPack
+## Prüfungsaufgabe
 
-There is a webpack bundler setup. It compiles and bundles all "front-end" resources. You should work only with files located in `/src` folder. Webpack config located in `build/webpack.config.js`.
+Entwickeln Sie eine Web-Applikation die innerhalb eines Location-Based-Service eine Karte darstellt. Innerhalb der Karte soll eine Position mit ihren Geo-Koordinaten ausgewählt werden können. Über diese Koordinaten soll mittels Reverse-Geocoding*1 der Ort ermittelt und über Wikipedia die entsprechenden Information zur Örtlichkeit ausgelesen und visualisiert werden
 
-Webpack has specific way of handling static assets (CSS files, images, audios). You can learn more about correct way of doing things on [official webpack documentation](https://webpack.js.org/guides/asset-management/).
+## Anforderungen
 
-## PWA
++ Die Web-Applikation soll möglichst gemäß den Vorgaben einer PWA entsprechend (Progressive-WebApplication, mobile first, responsive,...) umgesetzt werden.
++ Die App soll über "React/JSX" und "Redux", sowie die User Experience (Mobility/UI) über "Framework7" und dessen Standardkomponenten umgesetzt werden. Die Karten sollen über OpenStreetMap ggf. Leaflet eingebunden werden.
++ Bilden Sie dazu kleine Sprint-Teams (ca. 4-7 Personen pro Sprint-Team) und zerlegen sie die Epic in die entsprechenden User-Stories und Sprints (Produkt-Backlog, Sprint-Backlog), so dass die Teams eine gleichmäßige Auslastung haben.
++ Definieren Sie einen Scrum-Master (wenn nötig ggf. ein Team von 2 Personen) der das ProduktInkrement kontrolliert und dem Team beim Sprint-Inkrement beratend und unterstützend zur Seite steht, die (online)-Kommunikation untereinander aufrecht erhält, das Ziel ständig kontrolliert und den ProductOwner informiert.
++ Die fertige Lösung soll ggf. auf einem GitHub-Repository lauffähig veröffentlicht und auf CD/DVD dem Sekretariat übergeben werden. Der Scrum-Master ist für die vollständige Auslieferung der PWA zum genannten Termin verantwortlich.
 
-This is a PWA. Don't forget to check what is inside of your `service-worker.js`. It is also recommended that you disable service worker (or enable "Update on reload") in browser dev tools during development.
-## Assets
+## Bewertung
 
-Assets (icons, splash screens) source images located in `assets-src` folder. To generate your own icons and splash screen images, you will need to replace all assets in this directory with your own images (pay attention to image size and format), and run the following command in the project directory:
-
-```
-framework7 assets
-```
-
-Or launch UI where you will be able to change icons and splash screens:
-
-```
-framework7 assets --ui
-```
-
-## Documentation & Resources
-
-* [Framework7 Core Documentation](https://framework7.io/docs/)
-
-* [Framework7 React Documentation](https://framework7.io/react/)
-
-* [Framework7 Icons Reference](https://framework7.io/icons/)
-* [Community Forum](https://forum.framework7.io)
-
-## Support Framework7
-
-Love Framework7? Support project by donating or pledging on patreon:
-https://patreon.com/vladimirkharlampidi
-
++ **Problemstellung (25%):** Nachvollziehbare Darstellung und Abgrenzung der Problemstellung. Ist der Programmentwurf entsprechend der Problemstellung, Detailliertheit und Qualität von den Kursbeteiligten umgesetzt worden?
++ **Aufbau (20%):** Nachvollziehbarer Aufbau der Arbeit aus der Zielhierarchie. Schlüssigkeit der Struktur/ Methode der eigenen Bearbeitung.
++ **Gestaltung der Arbeit (20%):** Übersichtlichkeit des Programmentwurfs auch bezüglich: Intuitive Bedienbarkeit, Quelltextgestaltung, App-Layout, Einheitlichkeit und Qualität der verwendeten Gestaltungselemente.
++ **Zielhierarchie (15%):** Umsetzung des Finalziels sowie Ableitung von Modalzielen zur Erreichung des Finalziels (Scrum: User-Stories und Sprint-Teams).
++ **Eigenständigkeit (10%):** Aufbauend auf die zur Verfügung stehende Quellenarbeit mit ausreichendem Eigenanteil für die Arbeit und Ableitung eigener Erkenntnisse.
++ **Dokumentation (10%):** Ausreichende Dokumentation in den Quelltexten, so dass ein aussenstehender Programmierer die Arbeit übernehmen und darauf aufsetzen kann.
