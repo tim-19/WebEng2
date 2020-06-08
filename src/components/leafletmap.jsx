@@ -1,8 +1,14 @@
 import React, { Component, useRef } from "react";
 import { Map, TileLayer } from "react-leaflet";
 import Routing from "./routing";
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getWaypointsError, getWaypoints, getWaypointsPending } from '../reducers/waypointReducer';
+import ADD_WAYPOINT from '../actions/waypointActions';
+import { addWaypointAction } from '../actions/nominatim';
 
-export default class LeafletMap extends Component {
+class LeafletMap extends Component {
 
   constructor(props) {
     super(props);
@@ -28,7 +34,7 @@ export default class LeafletMap extends Component {
    * Handle a click on the map
    */
   handleClick = event => {
-    this.props.addWaypoint(event.latlng.lat, event.latlng.lng); // add a waypoint to the ssot
+    this.props.addWaypoint(event.latlng.lat, event.latlng.lng);
     this.routerRef.current.update(); // notify the router that the waypoints have changed
   }
 
@@ -43,3 +49,21 @@ export default class LeafletMap extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  error: getWaypointsError(state),
+  waypoints: getWaypoints(state),
+  pending: getWaypointsPending(state)
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  // addWaypoint: (lat, lng) => {
+  //   dispatch({ type: ADD_WAYPOINT, lat, lng })
+  // }
+  addWaypoint: addWaypointAction
+}, dispatch)
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LeafletMap);

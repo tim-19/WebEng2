@@ -5,8 +5,10 @@ import {
     Block
 } from 'framework7-react';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getWaypoints } from '../reducers/waypointReducer';
 
-export default class Waypoints extends Component {
+class Waypoints extends Component {
 
     constructor(props) {
         super(props);
@@ -57,3 +59,12 @@ export default class Waypoints extends Component {
 
     }
 }
+
+const mapStateToProps = state => ({
+    waypoints: getWaypoints(state)
+});
+
+export default connect(
+    mapStateToProps,
+    null
+)(Waypoints);
