@@ -5,9 +5,13 @@ import {
   FETCH_NOMINATIM_ERROR,
   FETCH_WIKIPEDIAINFO_PENDING,
   FETCH_WIKIPEDIAINFO_SUCCESS,
-  FETCH_WIKIPEDIAINFO_ERROR
+  FETCH_WIKIPEDIAINFO_ERROR,
+  fetchWikipediaInfoPending,
+  fetchWikipediaInfoSuccess,
+  fetchWikipediaInfoError
 } from '../actions/waypointActions';
 import uuid from 'uuid';
+import { ActionsLabel } from 'framework7-react';
 
 const initialState = {
   pending: false,
@@ -37,7 +41,7 @@ export default (state = initialState, action) => {
         pending: true
       }
     case FETCH_NOMINATIM_SUCCESS:
-      let waypoints = [...state.waypoints]
+      var waypoints = [...state.waypoints]
       waypoints.forEach(wp => {
         if (wp.lat === action.lat && wp.lng === action.lng) {
           wp.address = action.response.address;
@@ -50,6 +54,32 @@ export default (state = initialState, action) => {
         waypoints
       }
     case FETCH_NOMINATIM_ERROR:
+      return {
+        ...state,
+        pending: false,
+        error: action.error
+      }
+    case FETCH_WIKIPEDIAINFO_PENDING:
+      return {
+        ...state,
+        pending: true
+      }
+    case FETCH_WIKIPEDIAINFO_SUCCESS:
+      const pageId = Object.keys(action.response.query.pages)[0];
+
+      var waypoints = [...state.waypoints]
+      waypoints.forEach(wp => {
+        if (wp.lat === action.lat && wp.lng === action.lng) {
+          wp.wikipediaInfo = action.response.query.pages[pageId].extract;
+        }
+      });
+
+      return {
+        ...state,
+        pending: false,
+        waypoints
+      }
+    case FETCH_WIKIPEDIAINFO_ERROR:
       return {
         ...state,
         pending: false,

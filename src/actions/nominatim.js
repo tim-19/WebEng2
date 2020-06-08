@@ -7,6 +7,7 @@ import {
     fetchWikipediaInfoSuccess,
     fetchWikipediaInfoError
 } from './waypointActions';
+import {store} from '../js/store';
 
 
 export function addWaypointAction(lat, lng) {
@@ -31,6 +32,7 @@ export function reverseGeocodingAction(lat, lng) {
                     throw (response.error);
                 }
                 dispatch(fetchNominatimSuccess(response, lat, lng));
+                dispatch(getWikipediaInfoAction(response.address, lat, lng));
                 return response;
                 //Folgenden code in reducer auslagern
                 // let waypoints = [...this.state.waypointList]
@@ -53,10 +55,11 @@ export function reverseGeocodingAction(lat, lng) {
 /**
  * Calls the wikipedia api with the city name of the waypoint and then updates the state with the new information
  */
-export function getWikipediaInfoAction(waypoint) {
+export function getWikipediaInfoAction(address, lat, lng) {
     return dispatch => {
         dispatch(fetchWikipediaInfoPending());
-        const cityName = waypoint.address[Object.keys(waypoint.address)[0]];
+
+        const cityName = address[Object.keys(address)[0]];
         const endpoint = `https://de.wikipedia.org/w/api.php?format=json&action=query&origin=*&prop=extracts&exintro=&explaintext=&titles=${cityName}`
         fetch(endpoint)
             .then(response => response.json())
@@ -64,19 +67,8 @@ export function getWikipediaInfoAction(waypoint) {
                 if (response.error) {
                     throw (response.error);
                 }
-                dispatch(fetchWikipediaInfoSuccess(response.products));
+                dispatch(fetchWikipediaInfoSuccess(response, lat, lng));
                 return response;
-                //folgenden code in reducer auslagern
-                // const pageId = Object.keys(data.query.pages)[0];
-
-                // let waypoints = [...this.state.waypointList]
-                // waypoints.forEach(wp => {
-                //     if (wp.id === waypoint.id) {
-                //         wp.wikipediaInfo = data.query.pages[pageId].extract;
-                //     }
-                // });
-                // this.setState({ waypointList: waypoints });
-
             })
             .catch(error => {
                 dispatch(fetchWikipediaInfoError(error));

@@ -1,11 +1,9 @@
 import React, { Component, useRef } from "react";
 import { Map, TileLayer } from "react-leaflet";
 import Routing from "./routing";
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getWaypointsError, getWaypoints, getWaypointsPending } from '../reducers/waypointReducer';
-import ADD_WAYPOINT from '../actions/waypointActions';
 import { addWaypointAction } from '../actions/nominatim';
 
 class LeafletMap extends Component {
@@ -57,10 +55,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  // addWaypoint: (lat, lng) => {
-  //   dispatch({ type: ADD_WAYPOINT, lat, lng })
-  // }
-  addWaypoint: addWaypointAction
+  addWaypoint: addWaypointAction,
 }, dispatch)
 
 export default connect(

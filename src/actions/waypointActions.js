@@ -42,10 +42,12 @@ export function fetchWikipediaInfoPending() {
     }
 }
 
-export function fetchWikipediaInfoSuccess(waypoint) {
+export function fetchWikipediaInfoSuccess(response, lat, lng) {
     return {
         type: FETCH_WIKIPEDIAINFO_SUCCESS,
-        waypoint: waypoint
+        response,
+        lat,
+        lng
     }
 }
 

@@ -16,24 +16,19 @@ import 'framework7/css/framework7.bundle.css';
 import '../css/icons.css';
 import '../css/app.css';
 
-import { applyMiddleware, createStore } from 'redux';
-import thunk from 'redux-thunk';
-import waypointReducer from '../reducers/waypointReducer';
-
 // Import App Component
 import App from '../components/app.jsx';
 import { Provider } from 'react-redux';
 
+import { store } from './store';
+
 // Init F7 Vue Plugin
 Framework7.use(Framework7React)
-
-const middlewares = [thunk];
-const store = createStore(waypointReducer, { waypoints: [] }, applyMiddleware(...middlewares));
 
 // Mount React App
 ReactDOM.render(
   <Provider store={store}>
-    <App/>
+    <App />
   </Provider>,
   document.getElementById('app'),
 );
