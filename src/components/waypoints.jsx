@@ -10,17 +10,12 @@ import { getWaypoints } from '../reducers/waypointReducer';
 
 class Waypoints extends Component {
 
-    constructor(props) {
-        super(props);
-        this.createListItem = this.createListItem.bind(this);
-    }
-
     /**
      * creates a list item for the waypoint with conditional rendering
      */
     createListItem = waypoint => {
         if (waypoint.address) {
-            const wikipediaInfo = waypoint.wikipediaInfo ? waypoint.wikipediaInfo : "...";
+            const wikipediaInfo = waypoint.wikipediaInfo ? waypoint.wikipediaInfo : '...';
             const cityName = waypoint.address[Object.keys(waypoint.address)[0]];
             return (
                 <ListItem accordionItem key={waypoint.id} title={cityName}>

@@ -4,7 +4,7 @@ import Routing from "./routing";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getWaypointsError, getWaypoints, getWaypointsPending } from '../reducers/waypointReducer';
-import { addWaypointAction } from '../actions/nominatim';
+import { addWaypointAction } from '../actions/api';
 
 class LeafletMap extends Component {
 

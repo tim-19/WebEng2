@@ -1,14 +1,10 @@
 import {
     addWaypoint,
-    fetchNominatimPending,
+    fetchPending,
     fetchNominatimSuccess,
-    fetchNominatimError,
-    fetchWikipediaInfoPending,
     fetchWikipediaInfoSuccess,
-    fetchWikipediaInfoError
+    fetchError
 } from './waypointActions';
-import {store} from '../js/store';
-
 
 export function addWaypointAction(lat, lng) {
     return dispatch => {
@@ -23,7 +19,7 @@ export function addWaypointAction(lat, lng) {
 export function reverseGeocodingAction(lat, lng) {
     
     return dispatch => {
-        dispatch(fetchNominatimPending());
+        dispatch(fetchPending());
         const endpoint = `https://nominatim.openstreetmap.org/reverse?format=json&zoom=10&lon=${lng}&lat=${lat}`;
         fetch(endpoint)
             .then(response => response.json())
@@ -34,19 +30,9 @@ export function reverseGeocodingAction(lat, lng) {
                 dispatch(fetchNominatimSuccess(response, lat, lng));
                 dispatch(getWikipediaInfoAction(response.address, lat, lng));
                 return response;
-                //Folgenden code in reducer auslagern
-                // let waypoints = [...this.state.waypointList]
-                // waypoints.forEach(wp => {
-                //     if (wp.id === waypoint.id) {
-                //         wp.address = data.address;
-                //         waypoint.address = data.address;
-                //     }
-                // });
-                // this.setState({ waypointList: waypoints });
-                // this.getWikipediaInfo(waypoint);
             })
             .catch(error => {
-                dispatch(fetchNominatimError(error));
+                dispatch(fetchError(error));
             })
 
     }
@@ -57,7 +43,7 @@ export function reverseGeocodingAction(lat, lng) {
  */
 export function getWikipediaInfoAction(address, lat, lng) {
     return dispatch => {
-        dispatch(fetchWikipediaInfoPending());
+        dispatch(fetchPending());
 
         const cityName = address[Object.keys(address)[0]];
         const endpoint = `https://de.wikipedia.org/w/api.php?format=json&action=query&origin=*&prop=extracts&exintro=&explaintext=&titles=${cityName}`
@@ -71,7 +57,7 @@ export function getWikipediaInfoAction(address, lat, lng) {
                 return response;
             })
             .catch(error => {
-                dispatch(fetchWikipediaInfoError(error));
+                dispatch(fetchError(error));
             })
     }
 }
