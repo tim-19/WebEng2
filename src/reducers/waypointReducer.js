@@ -1,17 +1,11 @@
 import {
   ADD_WAYPOINT,
-  FETCH_NOMINATIM_PENDING,
+  FETCH_PENDING,
   FETCH_NOMINATIM_SUCCESS,
-  FETCH_NOMINATIM_ERROR,
-  FETCH_WIKIPEDIAINFO_PENDING,
   FETCH_WIKIPEDIAINFO_SUCCESS,
-  FETCH_WIKIPEDIAINFO_ERROR,
-  fetchWikipediaInfoPending,
-  fetchWikipediaInfoSuccess,
-  fetchWikipediaInfoError
+  FETCH_ERROR,
 } from '../actions/waypointActions';
 import uuid from 'uuid';
-import { ActionsLabel } from 'framework7-react';
 
 const initialState = {
   pending: false,
@@ -35,7 +29,7 @@ export default (state = initialState, action) => {
         ...state,
         waypoints: [...state.waypoints, newWaypoint]
       };
-    case FETCH_NOMINATIM_PENDING:
+    case FETCH_PENDING:
       return {
         ...state,
         pending: true
@@ -53,17 +47,6 @@ export default (state = initialState, action) => {
         pending: false,
         waypoints
       }
-    case FETCH_NOMINATIM_ERROR:
-      return {
-        ...state,
-        pending: false,
-        error: action.error
-      }
-    case FETCH_WIKIPEDIAINFO_PENDING:
-      return {
-        ...state,
-        pending: true
-      }
     case FETCH_WIKIPEDIAINFO_SUCCESS:
       const pageId = Object.keys(action.response.query.pages)[0];
 
@@ -79,7 +62,7 @@ export default (state = initialState, action) => {
         pending: false,
         waypoints
       }
-    case FETCH_WIKIPEDIAINFO_ERROR:
+    case FETCH_ERROR:
       return {
         ...state,
         pending: false,
