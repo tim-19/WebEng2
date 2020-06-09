@@ -18,12 +18,17 @@ import '../css/app.css';
 
 // Import App Component
 import App from '../components/app.jsx';
+import { Provider } from 'react-redux';
+
+import { store } from './store';
 
 // Init F7 Vue Plugin
 Framework7.use(Framework7React)
 
 // Mount React App
 ReactDOM.render(
-  React.createElement(App),
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('app'),
 );

@@ -108,7 +108,7 @@ export default class Home extends React.Component {
           <Col width="100" medium="50">
             <Card title="Karte">
               <CardContent>
-                <LeafletMap waypoints={waypointList} addWaypoint={this.addWaypoint} />
+                <LeafletMap waypoints={waypointList} />
               </CardContent>
             </Card>
           </Col>
